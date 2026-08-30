@@ -26,6 +26,12 @@ const cursor = {downAtX: 0, downAtY: 0, offsetX:0, offsetY:0, isDown: false};
 let temp = {x:0, y:0};
 let isWheelDown = false;
 
+let mode = 'normal';
+
+function changeMode(m) {
+  mode = m;
+}
+
 let focusedPictureId = -1;
 let focusedPictureX = 0;
 let focusedPictureY = 0;
@@ -112,8 +118,8 @@ function draw() {
     const height = image.bitmap.height;
     const ratio = width/height;
 
-    const imageX = image.x * zoom + offsetX * zoom + activeOffsetX * zoom;// - 184// - temp.x;
-    const imageY = image.y * zoom + offsetY * zoom + activeOffsetY * zoom;// - 176// - temp.y;
+    const imageX = image.x * zoom + offsetX * zoom + activeOffsetX * zoom;
+    const imageY = image.y * zoom + offsetY * zoom + activeOffsetY * zoom;
     const imageWidth = 300*ratio * zoom;
     const imageHeight = 300 * zoom;
 
@@ -134,6 +140,28 @@ function draw() {
 
 draw();
 
+function focusImageUnderCursor(x, y) {
+  const imgs = Object.entries(images);
+  focusedPictureId = -1;
+  for(let i=imgs.length-1; i>=0; i--) {
+    const id = imgs[i][0];
+    console.log(id);
+    const img = imgs[i][1];
+    const imgX = img.x;
+    const imgY = img.y;
+    const width = img.bitmap.width;
+    const height = img.bitmap.height;
+    const ratio = width/height;
+    const imgW = 300 * ratio * zoom; // Hard-coded image image size for now; will change when resize feature is supported
+    const imgH = 300 * zoom;
+    if(imgX <= x && x <= imgX+imgW && imgY <= y && y <= imgY+imgH) {
+      console.log(x, y);
+      console.log(imgX, imgY, imgW, imgH);
+      focusedPictureId = +id;
+      break;
+    }
+  }
+}
 
 canvas.addEventListener('mousedown', (ev) => {
   cursor.downAtX = ev.offsetX;
@@ -142,8 +170,11 @@ canvas.addEventListener('mousedown', (ev) => {
     isWheelDown = true;
   } else if(ev.button === 0) {
     cursor.isDown = true;
-    focusedPictureX = images[focusedPictureId].x;
-    focusedPictureY = images[focusedPictureId].y;
+    if(mode === 'normal') {
+      focusImageUnderCursor(ev.offsetX, ev.offsetY);
+    }
+    focusedPictureX = images[focusedPictureId]?.x;
+    focusedPictureY = images[focusedPictureId]?.y;
   }
 });
 
