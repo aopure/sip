@@ -147,8 +147,8 @@ function focusImageUnderCursor(x, y) {
     const id = imgs[i][0];
     console.log(id);
     const img = imgs[i][1];
-    const imgX = img.x;
-    const imgY = img.y;
+    const imgX = img.x + activeOffsetX + offsetX;
+    const imgY = img.y + activeOffsetY + offsetY;
     const width = img.bitmap.width;
     const height = img.bitmap.height;
     const ratio = width/height;
