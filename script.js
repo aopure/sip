@@ -46,9 +46,11 @@ function updateLayersList() {
   for(let key in images) {
     const image = images[key];
     const div = document.createElement('div');
+    document.getElementsByClassName('active-layer')[0]?.classList.remove('active-layer');
     div.classList.add('layer');
+    div.classList.add('active-layer');
     div.dataset.id = key;
-    div.onclick = () => {focusedPictureId = +key}; 
+    div.onclick = () => {focusedPictureId = +key; highLightActiveLayer()}; 
     
     const img = document.createElement('img');
     img.src = image.url;
@@ -61,6 +63,16 @@ function updateLayersList() {
     layersElem.appendChild(div);
     i++
   }
+}
+
+function highLightActiveLayer() {
+  document.getElementsByClassName('active-layer')[0]?.classList.remove('active-layer');
+  const layers = document.getElementsByClassName('layer');
+  Array.from(layers).forEach((layer) => {
+    if(+layer.dataset.id === focusedPictureId) {
+      layer.classList.add('active-layer');
+    }
+  });
 }
 
 function addNewImage(files) {
@@ -163,6 +175,7 @@ function focusImageUnderCursor(x, y) {
       break;
     }
   }
+  highLightActiveLayer();
 }
 
 canvas.addEventListener('mousedown', (ev) => {

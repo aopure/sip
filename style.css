@@ -147,6 +147,10 @@ noscript {
   }
 }
 
+.active-layer {
+  background-color: #555;
+}
+
 .layer > img {
   width: 30px;
   height: 30px;
