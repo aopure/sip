@@ -29,6 +29,8 @@ let isWheelDown = false;
 let mode = 'normal';
 
 function changeMode(m) {
+  document.getElementById(`${mode}-mode`).classList.remove('active-mode');
+  document.getElementById(`${m}-mode`).classList.add('active-mode')
   mode = m;
 }
 

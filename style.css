@@ -107,6 +107,10 @@ noscript {
   color:#eee;
 }
 
+.active-mode {
+  background-color: #444;
+}
+
 #sidebar {
   width: 300px;
   height: 100%;
