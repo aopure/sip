@@ -156,25 +156,28 @@ draw();
 
 function focusImageUnderCursor(x, y) {
   const imgs = Object.entries(images);
+
   focusedPictureId = -1;
+
   for(let i=imgs.length-1; i>=0; i--) {
     const id = imgs[i][0];
-    console.log(id);
     const img = imgs[i][1];
-    const imgX = img.x + activeOffsetX + offsetX;
-    const imgY = img.y + activeOffsetY + offsetY;
+
+    const imgX = temp.x + img.x * zoom + activeOffsetX * zoom + offsetX * zoom;
+    const imgY = temp.y + img.y * zoom + activeOffsetY * zoom + offsetY * zoom;
+
     const width = img.bitmap.width;
     const height = img.bitmap.height;
     const ratio = width/height;
     const imgW = 300 * ratio * zoom; // Hard-coded image image size for now; will change when resize feature is supported
     const imgH = 300 * zoom;
+    
     if(imgX <= x && x <= imgX+imgW && imgY <= y && y <= imgY+imgH) {
-      console.log(x, y);
-      console.log(imgX, imgY, imgW, imgH);
       focusedPictureId = +id;
       break;
     }
   }
+  
   highLightActiveLayer();
 }
 
