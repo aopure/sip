@@ -305,7 +305,7 @@ window.addEventListener('mouseup', (ev) => {
 window.addEventListener('mousemove', (ev) => {
   cursor.offsetX = ev.offsetX;
   cursor.offsetY = ev.offsetY;
-  if(isWheelDown) {
+  if(isWheelDown || (cursor.isDown && focusedPictureId == -1)) {
     activeOffsetX = (ev.offsetX - cursor.downAtX)/zoom;
     activeOffsetY = (ev.offsetY - cursor.downAtY)/zoom;
     return;
