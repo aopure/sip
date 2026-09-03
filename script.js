@@ -45,6 +45,9 @@ let focusedPictureId = -1;
 let focusedPictureX = 0;
 let focusedPictureY = 0;
 
+const visibilityOn = '<span class="material-symbols-outlined">visibility</span>';
+const visibilityOff = '<span class="material-symbols-outlined">visibility_off</span>';
+
 let id = 0;
 function updateLayersList() {
   layersElem.innerHTML = '';
@@ -65,8 +68,14 @@ function updateLayersList() {
     const p = document.createElement('p');
     p.textContent = i === 0 ? 'Base Layer' : `Layer ${i}`;
 
+    const hideButton = document.createElement('button');
+    hideButton.classList.add('hide-button');
+    hideButton.onclick = () => { image.hidden = !image.hidden; updateLayersList()};
+    hideButton.innerHTML = image.hidden ? visibilityOff : visibilityOn;
+
     div.appendChild(img);
     div.appendChild(p);
+    div.appendChild(hideButton);
     layersElem.appendChild(div);
     i++
   }
@@ -92,6 +101,7 @@ function addNewImage(files) {
         y: 50,
         width: map.width,
         height: map.height,
+        hidden: false,
       }
       focusedPictureId = id;
       images[id] = (imageObj);
@@ -137,6 +147,7 @@ function draw() {
   
     for(let key in images) {
     const image = images[key];
+    if (image.hidden) continue; 
     const width = image.width;
     const height = image.height;
     const ratio = width/height;

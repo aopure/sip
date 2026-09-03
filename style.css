@@ -158,3 +158,24 @@ noscript {
   margin-right: 5px;
   background-color: white;
 }
+
+.hide-button {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: auto;
+
+  border: none;
+  border-radius: 5px;
+  
+  color: white;
+  background-color: transparent;
+}
+
+.hide-button:hover {
+  background-color: #222;
+}
