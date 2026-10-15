@@ -1,3 +1,4 @@
+import { flipImage } from "./flip";
 import { getFocusedImage } from "./images";
 import { SipImage, State } from "./types";
 import { generateGridBackground, drawImage, fillRect, drawGridBackground, hoveredResizeHandler } from "./utils/drawing";
@@ -59,14 +60,18 @@ canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 
     const focusedImage = getFocusedImage(imgs);
     if (focusedImage) {
-      state.resizing = hoveredResizeHandler(ev, state, focusedImage);
-      state.resizingX = focusedImage.x;
-      state.resizingY = focusedImage.y;
-      state.resizingRatioW = focusedImage.width / focusedImage.height;
-      state.resizingRatioH = focusedImage.height / focusedImage.width;
-      if (state.resizingStartX != null && state.resizingStartY != null) {
-        state.resizingStartX = focusedImage.x;
-        state.resizingStartY = focusedImage.y;
+      if (state.mode === 'resize') {
+        state.resizing = hoveredResizeHandler(ev, state, focusedImage);
+        state.resizingX = focusedImage.x;
+        state.resizingY = focusedImage.y;
+        state.resizingRatioW = focusedImage.width / focusedImage.height;
+        state.resizingRatioH = focusedImage.height / focusedImage.width;
+        if (state.resizingStartX != null && state.resizingStartY != null) {
+          state.resizingStartX = focusedImage.x;
+          state.resizingStartY = focusedImage.y;
+        }
+      } else if (state.mode === 'flip') {
+        flipImage(focusedImage, state);
       }
     }
   }

@@ -39,4 +39,5 @@ export interface State {
   'keepRatio': boolean;
   'resizingRatioW': number;
   'resizingRatioH': number;
+  'horizontalFlip': boolean;
 }

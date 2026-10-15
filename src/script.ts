@@ -9,7 +9,7 @@ import { addImage } from "./images.ts";
 import { onImageInput } from "./input.ts";
 import { startRender } from "./canvas.ts";
 import { addTool } from "./tools.ts";
-import { removeDialogs, resizeDialogBox } from "./dialogs.ts";
+import { flipDialogBox, removeDialogs, resizeDialogBox } from "./dialogs.ts";
 import { getFocusedImage } from "./images.ts";
 import { resizeImage } from "./resize.ts";
 
@@ -46,6 +46,7 @@ const state: State = {
   'keepRatio': false,
   'resizingRatioW': 1,
   'resizingRatioH': 1,
+  'horizontalFlip': true
 }
 
 function init() {
@@ -117,7 +118,19 @@ function init() {
     resizeDialogBox(state, onresize, onreset);
   });
   addTool('rotate', './img/icons/rotate.png', () => {});
-  addTool('flip', './img/icons/flip.png', () => {});
+  addTool('flip', './img/icons/flip.png', () => {
+    state.mode = 'flip';
+    state.horizontalFlip = true;
+    canvas.style.cursor = 'ew-resize';
+    const oncheck = () => {
+      if (state.horizontalFlip) {
+        canvas.style.cursor = 'ew-resize';
+      } else {
+        canvas.style.cursor = 'ns-resize';
+      }
+    }
+    flipDialogBox(state, oncheck);
+  });
   addTool('brush', './img/icons/brush.png', () => {});
   addTool('crop', './img/icons/crop.png', () => {});
   addTool('eraser', './img/icons/eraser.png', () => {});
