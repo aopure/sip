@@ -230,7 +230,7 @@ function resizeTop(focusedImage: SipImage, ev: MouseEvent) {
   const newHeight = Math.max(state.resizingHeight + dy, 0);
 
   focusedImage.height = newHeight;
-  focusedImage.y = state.resizingY + dy;
+  focusedImage.y = state.resizingY - dy;
 
   if (!state.keepRatio) return;
 
