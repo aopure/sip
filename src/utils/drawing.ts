@@ -3,9 +3,9 @@ import { SipImage, State } from "../types";
 export function line(
   ctx: CanvasRenderingContext2D,
   x1: number,
-  y1: number, 
-  x2: number, 
-  y2: number, 
+  y1: number,
+  x2: number,
+  y2: number,
   color = 'black'
 ) {
   ctx.save()
@@ -20,9 +20,9 @@ export function line(
 }
 
 export function fillRect(
-  ctx: CanvasRenderingContext2D, 
+  ctx: CanvasRenderingContext2D,
   state: State,
-  x: number, 
+  x: number,
   y: number,
   width: number,
   height: number
@@ -30,17 +30,19 @@ export function fillRect(
   const zoom = state.zoom;
   const offsetX = state.offsetX * zoom;
   const offsetY = state.offsetY * zoom;
+
   x = state.zoomOffsetX + x * zoom + offsetX;
   y = state.zoomOffsetY + y * zoom + offsetY;
   width = width * zoom;
   height = height * zoom;
+
   ctx.fillRect(x, y, width, height);
 }
 
 function strokeRect(
-  ctx: CanvasRenderingContext2D, 
+  ctx: CanvasRenderingContext2D,
   state: State,
-  x: number, 
+  x: number,
   y: number,
   width: number,
   height: number
@@ -48,24 +50,26 @@ function strokeRect(
   const zoom = state.zoom;
   const offsetX = state.offsetX * zoom;
   const offsetY = state.offsetY * zoom;
+
   x = state.zoomOffsetX + x * zoom + offsetX;
   y = state.zoomOffsetY + y * zoom + offsetY;
   width = width * zoom;
   height = height * zoom;
+
   ctx.strokeRect(x, y, width, height);
 }
 
 function pointInRect(
-  px: number, 
-  py: number, 
-  rx: number, 
-  ry: number, 
-  w: number, 
+  px: number,
+  py: number,
+  rx: number,
+  ry: number,
+  w: number,
   h: number
 ) {
 
   if (
-    (rx <= px && px <= (rx + w)) && 
+    (rx <= px && px <= (rx + w)) &&
     (ry <= py && py <= (ry + h))
   ) return true
   return false;
@@ -81,7 +85,7 @@ export function hoveredResizeHandler(
   const offsetY = state.offsetY * zoom;
   const x = Math.floor(state.zoomOffsetX + image.x * zoom + offsetX);
   const y = Math.floor(state.zoomOffsetY + image.y * zoom + offsetY);
-  const width  = Math.floor(image.width * zoom);
+  const width = Math.floor(image.width * zoom);
   const height = Math.floor(image.height * zoom);
 
   let resizeHandlerSize;
@@ -102,11 +106,11 @@ export function hoveredResizeHandler(
   const centerY = top + height / 2
 
   const topLeft = pointInRect(
-    ev.offsetX, 
+    ev.offsetX,
     ev.offsetY,
-    left - half, 
-    top - half, 
-    resizeHandlerSize, 
+    left - half,
+    top - half,
+    resizeHandlerSize,
     resizeHandlerSize
   );
 
@@ -182,14 +186,14 @@ export function hoveredResizeHandler(
     resizeHandlerSize,
   );
 
-  if (topLeft)      return 'topLeft';
-  if (topRight)     return 'topRight';
-  if (bottomRight)  return 'bottomRight';
-  if (bottomLeft)   return 'bottomLeft';
-  if (topCenter)    return 'topCenter';
+  if (topLeft) return 'topLeft';
+  if (topRight) return 'topRight';
+  if (bottomRight) return 'bottomRight';
+  if (bottomLeft) return 'bottomLeft';
+  if (topCenter) return 'topCenter';
   if (bottomCenter) return 'bottomCenter';
-  if (centerLeft)   return 'centerLeft';
-  if (centerRight)  return 'centerRight';
+  if (centerLeft) return 'centerLeft';
+  if (centerRight) return 'centerRight';
   if (centerCenter) return 'centerCenter'
 
   return '';
@@ -197,7 +201,7 @@ export function hoveredResizeHandler(
 }
 
 function drawResizeHandlers(
-  ctx: CanvasRenderingContext2D, 
+  ctx: CanvasRenderingContext2D,
   state: State,
   image: SipImage,
 ) {
@@ -206,7 +210,7 @@ function drawResizeHandlers(
   const offsetY = state.offsetY * zoom;
   const x = Math.floor(state.zoomOffsetX + image.x * zoom + offsetX);
   const y = Math.floor(state.zoomOffsetY + image.y * zoom + offsetY);
-  const width  = Math.floor(image.width * zoom);
+  const width = Math.floor(image.width * zoom);
   const height = Math.floor(image.height * zoom);
 
   let resizeHandlerSize;
@@ -231,9 +235,9 @@ function drawResizeHandlers(
 
   // Top left
   ctx.strokeRect(
-    left - half, 
-    top - half, 
-    resizeHandlerSize, 
+    left - half,
+    top - half,
+    resizeHandlerSize,
     resizeHandlerSize
   );
 
@@ -310,34 +314,34 @@ function drawResizeHandlers(
 }
 
 export function drawImage(
-  ctx: CanvasRenderingContext2D, 
+  ctx: CanvasRenderingContext2D,
   state: State,
   image: SipImage,
-  x: number, 
+  x: number,
   y: number,
   width: number,
   height: number
 ) {
   if (image.hidden) return;
-  
+
   const img = new Image();
   img.src = image.objectURL;
-  
+
   const zoom = state.zoom;
   const offsetX = state.offsetX * zoom;
   const offsetY = state.offsetY * zoom;
   x = Math.floor(state.zoomOffsetX + x * zoom + offsetX);
   y = Math.floor(state.zoomOffsetY + y * zoom + offsetY);
-  width  = Math.floor(width * zoom);
+  width = Math.floor(width * zoom);
   height = Math.floor(height * zoom);
-  
+
   if (state.mode !== 'resize') {
     ctx.save();
     ctx.beginPath();
     ctx.rect(
-      Math.floor(0 + offsetX + state.zoomOffsetX), 
-      Math.floor(0 + offsetY + state.zoomOffsetY), 
-      Math.floor(state.baseImageWidth * zoom), 
+      Math.floor(0 + offsetX + state.zoomOffsetX),
+      Math.floor(0 + offsetY + state.zoomOffsetY),
+      Math.floor(state.baseImageWidth * zoom),
       Math.floor(state.baseImageHeight * zoom)
     );
     ctx.clip();
@@ -351,14 +355,14 @@ export function drawImage(
     ctx.drawImage(img, x, y, width, height);
     ctx.restore();
   }
-  
+
   if (image.focused) {
     ctx.save();
     ctx.strokeStyle = 'red';
     ctx.setLineDash([4]);
     ctx.strokeRect(x, y, width, height);
     ctx.restore();
-    
+
     if (state.mode === 'resize') {
       drawResizeHandlers(ctx, state, image);
     }
@@ -372,7 +376,7 @@ export function generateGridBackground() {
 
   const gap = 10;
   const gray = '#CACACA';
-  
+
   canvas.width = gap * 2;
   canvas.height = gap * 2;
 
@@ -401,9 +405,9 @@ export function drawGridBackground(
   const offsetY = state.offsetY * zoom;
   x = Math.floor(state.zoomOffsetX + x * zoom + offsetX);
   y = Math.floor(state.zoomOffsetY + y * zoom + offsetY);
-  width  = Math.floor(width * zoom);
+  width = Math.floor(width * zoom);
   height = Math.floor(height * zoom);
-  
+
   ctx.save();
   ctx.beginPath();
   const pattern = ctx.createPattern(grid, 'repeat');

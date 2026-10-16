@@ -1,6 +1,6 @@
 const toolsContainer = <HTMLDivElement>document.querySelector('.tools-container');
 
-export function addTool(name: string, icon: string, callback: Function, active:boolean=false) {
+export function addTool(name: string, icon: string, callback: Function, active: boolean = false) {
   const button = document.createElement('button');
   button.classList.add('tool-button');
   button.title = name;
@@ -21,7 +21,7 @@ export function addTool(name: string, icon: string, callback: Function, active:b
   const img = document.createElement('img');
   img.src = icon;
   img.alt = name;
-  
+
 
   button.appendChild(img);
   toolsContainer.appendChild(button);

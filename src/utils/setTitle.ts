@@ -1,4 +1,4 @@
-export function setTitle(title:string) {
+export function setTitle(title: string) {
   const head = document.head;
   let titleEl = head.querySelector('title');
 

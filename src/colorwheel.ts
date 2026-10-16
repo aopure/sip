@@ -1,6 +1,6 @@
-const colorWheelImage = <HTMLImageElement> document.getElementById('color-wheel-image');
-export const colorWheelCanvas = <HTMLCanvasElement> document.getElementById('color-wheel-canvas');
-const colorWheelCtx = <CanvasRenderingContext2D> colorWheelCanvas.getContext('2d');
+const colorWheelImage = <HTMLImageElement>document.getElementById('color-wheel-image');
+export const colorWheelCanvas = <HTMLCanvasElement>document.getElementById('color-wheel-canvas');
+const colorWheelCtx = <CanvasRenderingContext2D>colorWheelCanvas.getContext('2d');
 colorWheelCanvas.width = colorWheelCanvas.clientWidth;
 colorWheelCanvas.height = colorWheelCanvas.clientWidth;
 
@@ -10,9 +10,9 @@ let color = 'white';
 let isDown = false;
 let onColorChange: Function | null = null;
 
-export function onColorChanged(fn:Function) {
+export function onColorChanged(fn: Function) {
   onColorChange = fn;
-} 
+}
 
 export function resizeColorwheel() {
   colorWheelCanvas.width = parseInt(getComputedStyle(colorWheelCanvas).width);
@@ -23,7 +23,7 @@ export function drawColorwheel() {
   colorWheelCtx.drawImage(colorWheelImage, 0, 0, colorWheelCanvas.width, colorWheelCanvas.width);
 }
 
-export function colorWheelEventHandler(ev:MouseEvent) {
+export function colorWheelEventHandler(ev: MouseEvent) {
   const x = ev.offsetX;
   const y = ev.offsetY;
 
@@ -34,7 +34,7 @@ export function colorWheelEventHandler(ev:MouseEvent) {
   const b = imageData.data[0 + 2];
 
   const rgb = `rgb(${r}, ${g}, ${b})`;
-  
+
   setColor(rgb);
 }
 

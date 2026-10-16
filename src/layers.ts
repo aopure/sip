@@ -3,7 +3,7 @@ import { unfocusAllImages } from "./images";
 
 const layerTab = <HTMLDivElement>document.getElementById('layer-tab');
 const layerContainer = <HTMLDivElement>layerTab.querySelector('#layer-container');
-const layerOpacityValue= <HTMLInputElement>document.getElementById('layer-opacity-value');
+const layerOpacityValue = <HTMLInputElement>document.getElementById('layer-opacity-value');
 const layerOpacityInput = <HTMLInputElement>document.getElementById('layer-opacity-input');
 
 const moveLayerUpButton = <HTMLButtonElement>document.getElementById('move-layer-up');
@@ -12,7 +12,6 @@ const moveLayerDownButton = <HTMLButtonElement>document.getElementById('move-lay
 layerOpacityInput.disabled = true;
 layerOpacityInput.value = '100';
 layerOpacityValue.textContent = 'Opacity: 1';
-
 
 function getFocusedImageIndex(images: SipImage[]) {
   if (!images) return -1;
@@ -47,7 +46,7 @@ function moveDown(images: SipImage[]) {
 
 
 export function updateLayers(images: SipImage[]) {
-  
+
   moveLayerUpButton.onclick = () => {
     moveUp(images);
   };
@@ -78,7 +77,7 @@ export function updateLayers(images: SipImage[]) {
       const focusedLayer = document.querySelector('.active-layer');
       if (focusedLayer) {
         focusedLayer.classList.remove('active-layer');
-        
+
       }
 
       unfocusAllImages(images);
@@ -109,25 +108,25 @@ export function updateLayers(images: SipImage[]) {
     visibilityButton.classList.add('layer-button', 'layer-visibility-button');
 
     const visibilityIcon = document.createElement('img');
-    visibilityIcon.src = image.hidden ? 
-      './img/visibility_off.png' : 
+    visibilityIcon.src = image.hidden ?
+      './img/visibility_off.png' :
       './img/visibility.png';
 
     visibilityButton.appendChild(visibilityIcon);
     visibilityButton.addEventListener('click', () => {
       image.hidden = !image.hidden;
 
-      visibilityIcon.src = image.hidden ? 
-      './img/visibility_off.png' : 
-      './img/visibility.png';
+      visibilityIcon.src = image.hidden ?
+        './img/visibility_off.png' :
+        './img/visibility.png';
     });
 
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('layer-button', 'layer-delete-button');
 
     const deleteIcon = document.createElement('img');
-    deleteIcon.src = image.hidden ? 
-      './img/delete.png' : 
+    deleteIcon.src = image.hidden ?
+      './img/delete.png' :
       './img/delete.png';
 
     deleteButton.appendChild(deleteIcon);

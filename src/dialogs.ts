@@ -8,7 +8,6 @@ export function removeDialogs() {
   Array.from(dialogs).forEach(dialog => dialog.remove());
 }
 
-
 export function resizeDialogBox(state: State, onresize: Function, onreset: Function) {
   removeDialogs();
   const dialogContainer = document.createElement('div');
@@ -17,21 +16,21 @@ export function resizeDialogBox(state: State, onresize: Function, onreset: Funct
   const wrapper = document.createElement('div');
   wrapper.style.display = 'flex';
   wrapper.style.gap = '10px';
-  
+
   const checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
   checkbox.addEventListener('change', () => {
     state.keepRatio = checkbox.checked;
   });
-  
+
   const p = document.createElement('p');
   const text = document.createTextNode('Keep aspect ratio');
   p.appendChild(text);
-  
+
   wrapper.appendChild(checkbox);
   wrapper.appendChild(p);
   dialogContainer.appendChild(wrapper);
-  
+
   const resetBtn = document.createElement('button');
   resetBtn.addEventListener('click', () => {
     onreset();
@@ -61,11 +60,10 @@ export function flipDialogBox(state: State, oncheck: Function) {
     state.horizontalFlip = checkbox.checked;
     oncheck();
   });
-  
+
   const p = document.createElement('p');
   const text = document.createTextNode('Horizontal flip');
   p.appendChild(text);
-  
 
   dialogContainer.appendChild(checkbox);
   dialogContainer.appendChild(p);

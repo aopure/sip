@@ -1,7 +1,7 @@
 export function fileToImageData(file: File): Promise<ImageData> {
   return new Promise(res => {
     const tempCanvas = document.createElement('canvas');
-    const tempCtx = <CanvasRenderingContext2D> tempCanvas.getContext('2d');
+    const tempCtx = <CanvasRenderingContext2D>tempCanvas.getContext('2d');
 
     const img = new Image();
     img.src = URL.createObjectURL(file);

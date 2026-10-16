@@ -13,7 +13,7 @@ import { flipDialogBox, removeDialogs, resizeDialogBox } from "./dialogs.ts";
 import { getFocusedImage } from "./images.ts";
 import { resizeImage } from "./resize.ts";
 
-const canvas = <HTMLCanvasElement> document.getElementById('sip-canvas');
+const canvas = <HTMLCanvasElement>document.getElementById('sip-canvas');
 const ctx = canvas.getContext('2d');
 
 const images: SipImage[] = [];
@@ -63,7 +63,7 @@ function init() {
 
   onImageInput(async (file: File) => {
     await addImage(file, images);
-    
+
     if (images.length === 1) {
       setTitle(`SIP | ${images[0].name}`);
     }
@@ -83,7 +83,7 @@ function init() {
     canvas.style.cursor = 'move';
     removeDialogs();
   }, true);
-  addTool('select', './img/icons/select.png', () => {});
+  addTool('select', './img/icons/select.png', () => { });
   addTool('resize', './img/icons/resize.png', () => {
     state.mode = 'resize';
     canvas.style.cursor = 'default';
@@ -93,6 +93,9 @@ function init() {
 
       const width = focusedImage.width;
       const height = focusedImage.height;
+
+      state.resizingStartX = null;
+      state.resizingStartY = null;
 
       resizeImage(focusedImage, width, height);
     }
@@ -117,7 +120,7 @@ function init() {
     }
     resizeDialogBox(state, onresize, onreset);
   });
-  addTool('rotate', './img/icons/rotate.png', () => {});
+  addTool('rotate', './img/icons/rotate.png', () => { });
   addTool('flip', './img/icons/flip.png', () => {
     state.mode = 'flip';
     state.horizontalFlip = true;
@@ -131,11 +134,11 @@ function init() {
     }
     flipDialogBox(state, oncheck);
   });
-  addTool('brush', './img/icons/brush.png', () => {});
-  addTool('crop', './img/icons/crop.png', () => {});
-  addTool('eraser', './img/icons/eraser.png', () => {});
-  addTool('colorpicker', './img/icons/colorpicker.png', () => {});
-  
+  addTool('brush', './img/icons/brush.png', () => { });
+  addTool('crop', './img/icons/crop.png', () => { });
+  addTool('eraser', './img/icons/eraser.png', () => { });
+  addTool('colorpicker', './img/icons/colorpicker.png', () => { });
+
   handleResize();
   drawColorwheel();
 }
